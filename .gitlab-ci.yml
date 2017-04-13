@@ -1,0 +1,28 @@
+image: frekele/gradle:2.14.1-jdk8u102
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+stages:
+  - build
+
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+job_build:
+  stage: build
+  script:
+  # 打包命令
+    - gradle assemble
+#    - gradle clean build -x test
+
+  artifacts:
+    name: "${CI_BUILD_STAGE}_${CI_BUILD_REF_NAME}"
+    paths:
+      - ./build/libs/*.war
+
+    # 缓存三天
+    expire_in: 3 days
