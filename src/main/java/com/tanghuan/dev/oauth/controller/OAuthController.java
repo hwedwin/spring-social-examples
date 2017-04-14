@@ -20,7 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 
 @Controller
-@RequestMapping("/oauth")
+@RequestMapping("/auth")
 public class OAuthController {
 
     @Autowired
@@ -44,9 +44,7 @@ public class OAuthController {
 
         Connection<?> conn = connectSupport.completeConnection(factory, req);
 
-        model.addAttribute("name", conn.getDisplayName());
-
-        return "main";
+        return "redirect:/main.html";
     }
 
 }

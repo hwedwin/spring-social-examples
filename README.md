@@ -23,3 +23,9 @@ GitHub添加自己的应用是不需要审核所以也是最容易做的。
 ## 4. Spring-Social-WeiChat
 
 ## 5. Spring-Social-Instagram
+
+
+参考资料  
+http://docs.spring.io/spring-social/docs/current/reference/htmlsingle/#introduction
+http://docs.spring.io/spring-social/docs/1.0.x/reference/html/overview.html
+http://www.baeldung.com/rest-api-spring-oauth2-angularjs
