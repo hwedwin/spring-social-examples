@@ -1,6 +1,5 @@
 package com.tanghuan.dev.oauth.config;
 
-import com.tanghuan.dev.oauth.controller.OAuthController;
 import com.tanghuan.dev.oauth.social.github.connect.GitHubConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +12,7 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.connect.support.ConnectionFactoryRegistry;
-import org.springframework.social.connect.web.ConnectController;
+import org.springframework.social.connect.web.ConnectSupport;
 
 /**
  * Created by Arthur on 2017/4/13.
@@ -35,6 +34,11 @@ public class SocialConfig {
     }
 
     @Bean
+    public ConnectSupport connectSupport() {
+        return new ConnectSupport();
+    }
+
+    @Bean
     @Scope(value="request", proxyMode= ScopedProxyMode.INTERFACES)
     public ConnectionRepository connectionRepository(){
         return usersConnectionRepository().createConnectionRepository("6666");
@@ -44,17 +48,5 @@ public class SocialConfig {
     public UsersConnectionRepository usersConnectionRepository() {
         return new InMemoryUsersConnectionRepository(connectionFactoryLocator());
     }
-
-//    @Bean
-//    public ConnectController connectController() {
-//        return new ConnectController(connectionFactoryLocator(), connectionRepository());
-//    }
-
-    @Bean
-    public OAuthController oauthController() {
-        return new OAuthController(connectionFactoryLocator(), connectionRepository());
-    }
-
-
 
 }

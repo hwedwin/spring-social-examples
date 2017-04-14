@@ -12,6 +12,7 @@ public class IndexController {
 
     @GetMapping(value = {"/", "/index", "/index.html"})
     public String index() {
+        System.out.println("12344");
         return "index";
     }
 

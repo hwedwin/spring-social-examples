@@ -23,7 +23,6 @@ import java.util.List;
  */
 
 @Configuration
-@Import(value = {SocialConfig.class})
 @ComponentScan(basePackages = {"com.tanghuan.dev.oauth.controller"})
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {

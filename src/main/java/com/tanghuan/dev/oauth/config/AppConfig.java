@@ -12,8 +12,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @Import(value = {JpaConfig.class, SocialConfig.class})
 @ComponentScan(
         basePackages = {
-                "com.tanghuan.dev.oauth.service.impl",
-                "com.tanghuan.dev.oauth.exception"
+                "com.tanghuan.dev.oauth.service.impl"
         }
 )
 @PropertySource("classpath:application.properties")
