@@ -3,11 +3,18 @@
 ## 1. Spring-Social-GitHub
 GitHub添加自己的应用是不需要审核所以也是最容易做的。
 
-运行项目的时候需要在系统的hosts文件中映射 database_server 地址  
-如：
+### 项目注意
+1. 运行项目的时候需要在系统的hosts文件中映射 database_server 地址  
+    如：
+    
+        10.0.10.156     database_server
 
-    10.0.10.156     database_server
-
+2. 需要修改application.properties 文件
+    
+        oauth.github.clientId=3152ce107eeeb7c29e8a
+        oauth.github.clientSecret=c9c07e201658483d4a195b7f7b32c15a5acc6661
+        
+        将clientId和clientSecret该为你自己的。
 
 ## 2. Spring-Social-QQ
 
