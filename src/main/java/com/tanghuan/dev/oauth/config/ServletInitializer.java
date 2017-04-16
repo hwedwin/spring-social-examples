@@ -3,6 +3,8 @@ package com.tanghuan.dev.oauth.config;
 import org.springframework.mobile.device.DeviceResolverRequestFilter;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -49,5 +51,12 @@ public class ServletInitializer extends AbstractAnnotationConfigDispatcherServle
 
         // 配置设备过滤器
         servletContext.addFilter("deviceResolverRequestFilter", DeviceResolverRequestFilter.class).addMappingForUrlPatterns(null, false, "/*");
+
+        // 配置SpringSecurity过滤器链代理的Filter
+        DelegatingFilterProxy springSecurityFilterChain = new DelegatingFilterProxy();
+        servletContext.addFilter("springSecurityFilterChain", springSecurityFilterChain).addMappingForUrlPatterns(null, false, "/*");
+
+        HiddenHttpMethodFilter methodFilter = new HiddenHttpMethodFilter();
+        servletContext.addFilter("hiddenHttpMethodFilter", methodFilter);
     }
 }
