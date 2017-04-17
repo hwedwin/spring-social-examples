@@ -7,4 +7,6 @@ import com.tanghuan.dev.oauth.entity.domain.User;
  */
 public interface UserRepository extends BaseRepository<User> {
 
+    User findByUsername(String username);
+
 }

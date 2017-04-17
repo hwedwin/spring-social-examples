@@ -1,5 +1,6 @@
 package com.tanghuan.dev.oauth.config;
 
+import com.tanghuan.dev.oauth.security.uds.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,10 +42,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return super.authenticationManagerBean();
 //    }
 
+
+    @Bean
+    @Override
+    protected UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
+//    @Override
+//    public UserDetailsService userDetailsServiceBean() throws Exception {
+//        return super.userDetailsServiceBean();
+//    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-            .authorizeRequests().antMatchers("/login.html", "/oauth/**").permitAll()
+        http.authorizeRequests().antMatchers("/login.html", "/oauth/**", "/sign**").permitAll()
             .anyRequest().authenticated()
             .and()
                 // 配置登录
@@ -62,9 +74,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        return super.userDetailsService();
-    }
 }
