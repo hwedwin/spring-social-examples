@@ -43,7 +43,7 @@ public class UserConnection extends Super {
     private String refreshToken;
 
     @Column(name = "expire_time")
-    private Date expireTime;
+    private Long expireTime;
 
     public String getUserId() {
         return userId;
@@ -125,11 +125,11 @@ public class UserConnection extends Super {
         this.refreshToken = refreshToken;
     }
 
-    public Date getExpireTime() {
+    public Long getExpireTime() {
         return expireTime;
     }
 
-    public void setExpireTime(Date expireTime) {
+    public void setExpireTime(Long expireTime) {
         this.expireTime = expireTime;
     }
 }
