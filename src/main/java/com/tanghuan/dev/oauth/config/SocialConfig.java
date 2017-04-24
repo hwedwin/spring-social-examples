@@ -1,5 +1,6 @@
 package com.tanghuan.dev.oauth.config;
 
+import com.tanghuan.dev.oauth.security.repo.UsersConnectionRepositoryImpl;
 import com.tanghuan.dev.oauth.security.uds.SocialUserDetailsServiceImpl;
 import com.tanghuan.dev.oauth.social.github.api.GitHub;
 import com.tanghuan.dev.oauth.social.github.connect.GitHubConnectionFactory;
@@ -15,7 +16,6 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 import org.springframework.social.security.SocialUserDetailsService;
 
@@ -47,7 +47,7 @@ public class SocialConfig implements SocialConfigurer {
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+        return new UsersConnectionRepositoryImpl(connectionFactoryLocator, Encryptors.noOpText());
     }
 
     @Bean

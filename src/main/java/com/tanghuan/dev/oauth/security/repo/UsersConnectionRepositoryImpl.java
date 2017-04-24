@@ -7,6 +7,7 @@ import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.connect.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,7 +37,7 @@ public class UsersConnectionRepositoryImpl implements UsersConnectionRepository 
 
         List<UserConnection> userConnections = userConnectionRepository.findByProviderIdAndProviderUserId(connectionKey.getProviderId(), connectionKey.getProviderUserId());
 
-        if (userConnections == null || userConnections.size() == 0) return null;
+        if (userConnections == null || userConnections.size() == 0) return Collections.EMPTY_LIST;
 
         List<String> localUserIds = userConnections.stream().map(UserConnection::getUserId).distinct().collect(Collectors.toList());
 
@@ -57,7 +58,7 @@ public class UsersConnectionRepositoryImpl implements UsersConnectionRepository 
 
         List<UserConnection> userConnections = userConnectionRepository.findByProviderIdAndProviderUserIdIn(providerId, providerUserIds);
 
-        if (userConnections == null || userConnections.size() == 0) return null;
+        if (userConnections == null || userConnections.size() == 0) return Collections.EMPTY_SET;
 
         Set<String> localUserIds = userConnections.stream().map(UserConnection::getUserId).distinct().collect(Collectors.toSet());
 

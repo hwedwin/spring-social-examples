@@ -27,19 +27,19 @@ public class UserConnection extends Super {
     @Column(name = "display_name")
     private String displayName;
 
-    @Column(name = "profile_url", length = 512)
+    @Column(name = "profile_url", columnDefinition = "varchar(512) null")
     private String profileUrl;
 
-    @Column(name = "image_url", length = 512)
+    @Column(name = "image_url", columnDefinition = "varchar(512) null")
     private String imageUrl;
 
-    @Column(name = "access_token", length = 512, nullable = false)
+    @Column(name = "access_token", columnDefinition = "varchar(512) not null")
     private String accessToken;
 
-    @Column(length = 512)
+    @Column(length = 512, columnDefinition = "varchar(512) null")
     private String secret;
 
-    @Column(name = "refresh_token", length = 512)
+    @Column(name = "refresh_token", columnDefinition = "varchar(512) null")
     private String refreshToken;
 
     @Column(name = "expire_time")
