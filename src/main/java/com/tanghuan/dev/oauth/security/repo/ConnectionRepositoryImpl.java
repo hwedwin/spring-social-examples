@@ -4,11 +4,18 @@ import com.tanghuan.dev.oauth.entity.domain.UserConnection;
 import com.tanghuan.dev.oauth.repository.UserConnectionRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.connect.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.*;
 
 /**
@@ -86,9 +93,50 @@ public class ConnectionRepositoryImpl implements ConnectionRepository {
             throw new IllegalArgumentException("Unable to execute find: no providerUsers provided");
         }
 
-        // TODO
 
-        return null;
+        Sort sort = new Sort(Sort.Direction.ASC, "providerId", "rank");
+        List<UserConnection> userConnections = userConnectionRepository.findAll(new Specification<UserConnection>() {
+            @Override
+            public Predicate toPredicate(Root<UserConnection> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+
+                Predicate predicate = root.isNotNull();
+
+                Predicate userIdPredicate = cb.equal(root.get("userId").as(String.class), ConnectionRepositoryImpl.this.userId);
+
+                predicate = cb.and(predicate, userIdPredicate);
+
+                for (Map.Entry<String, List<String>> entry : providerUserIds.entrySet()) {
+                    Predicate providerIdPredicate = cb.equal(root.get("providerId").as(String.class), entry.getKey());
+                    Predicate providerUserIdPredicate = root.get("providerUserId").as(String.class).in(entry.getValue());
+                    predicate = cb.or(predicate, cb.and(providerIdPredicate, providerUserIdPredicate));
+                }
+
+                return predicate;
+            }
+        }, sort);
+
+        MultiValueMap<String, Connection<?>> connectionsForUsers = new LinkedMultiValueMap<>();
+
+        for (UserConnection userConnection : userConnections) {
+            String providerId = userConnection.getProviderId();
+            List<String> userIds = providerUserIds.get(providerId);
+            List<Connection<?>> connections = connectionsForUsers.get(providerId);
+
+            if (connections == null) {
+                connections = new ArrayList<>(userIds.size());
+
+                for (int i = 0; i < userIds.size(); i++) {
+                    connections.add(null);
+                }
+                connectionsForUsers.put(providerId, connections);
+            }
+
+            String providerUserId = userConnection.getProviderUserId();
+            int connectionIndex = userIds.indexOf(providerUserId);
+            connections.set(connectionIndex, map(userConnection));
+        }
+
+        return connectionsForUsers;
     }
 
     @Override

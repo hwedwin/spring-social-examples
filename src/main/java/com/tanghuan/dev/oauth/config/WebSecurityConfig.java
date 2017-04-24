@@ -32,27 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-//    @Override
-//    protected AuthenticationManager authenticationManager() throws Exception {
-//        return super.authenticationManager();
-//    }
-
-//    @Override
-//    public AuthenticationManager authenticationManager() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-
-
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
     }
-
-//    @Override
-//    public UserDetailsService userDetailsServiceBean() throws Exception {
-//        return super.userDetailsServiceBean();
-//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
