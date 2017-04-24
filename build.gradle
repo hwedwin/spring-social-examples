@@ -45,6 +45,8 @@ dependencies {
     compile group: 'org.springframework.social', name: 'spring-social-security', version: '1.1.4.RELEASE'
     compile group: 'org.springframework.social', name: 'spring-social-web', version: '1.1.4.RELEASE'
 
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.1.0.RELEASE'
+
     compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.3.RELEASE'
     compile group: 'org.thymeleaf', name: 'thymeleaf-spring4', version: '3.0.3.RELEASE'
 
