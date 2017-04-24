@@ -1,5 +1,7 @@
 package com.tanghuan.dev.oauth.security.repo;
 
+import com.tanghuan.dev.oauth.repository.UserConnectionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.ConnectionRepository;
@@ -11,6 +13,10 @@ import java.util.List;
  * Created by Arthur on 2017/4/24.
  */
 public class ConnectionRepositoryImpl implements ConnectionRepository {
+
+    @Autowired
+    private UserConnectionRepository userConnectionRepository;
+
     @Override
     public MultiValueMap<String, Connection<?>> findAllConnections() {
         return null;
