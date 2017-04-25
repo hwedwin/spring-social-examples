@@ -1,9 +1,11 @@
 package com.tanghuan.dev.oauth.config;
 
+import com.tanghuan.dev.oauth.repository.UserConnectionRepository;
 import com.tanghuan.dev.oauth.security.repo.UsersConnectionRepositoryImpl;
 import com.tanghuan.dev.oauth.security.uds.SocialUserDetailsServiceImpl;
 import com.tanghuan.dev.oauth.social.github.api.GitHub;
 import com.tanghuan.dev.oauth.social.github.connect.GitHubConnectionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.encrypt.Encryptors;
@@ -28,6 +30,9 @@ import org.springframework.social.security.SocialUserDetailsService;
 @Import(value = {JpaConfig.class, WebSecurityConfig.class})
 public class SocialConfig implements SocialConfigurer {
 
+    @Autowired
+    private UserConnectionRepository userConnectionRepository;
+
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment env) {
         connectionFactoryConfigurer.addConnectionFactory(
@@ -42,7 +47,7 @@ public class SocialConfig implements SocialConfigurer {
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        return new UsersConnectionRepositoryImpl(connectionFactoryLocator, Encryptors.noOpText());
+        return new UsersConnectionRepositoryImpl(userConnectionRepository, connectionFactoryLocator, Encryptors.noOpText());
     }
 
     @Bean

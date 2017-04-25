@@ -17,8 +17,7 @@ import java.util.stream.Collectors;
  */
 public class UsersConnectionRepositoryImpl implements UsersConnectionRepository {
 
-    @Autowired
-    private UserConnectionRepository userConnectionRepository;
+    private final UserConnectionRepository userConnectionRepository;
 
     private final ConnectionFactoryLocator connectionFactoryLocator;
 
@@ -26,7 +25,8 @@ public class UsersConnectionRepositoryImpl implements UsersConnectionRepository 
 
     private ConnectionSignUp connectionSignUp;
 
-    public UsersConnectionRepositoryImpl(ConnectionFactoryLocator connectionFactoryLocator, TextEncryptor textEncryptor) {
+    public UsersConnectionRepositoryImpl(UserConnectionRepository userConnectionRepository, ConnectionFactoryLocator connectionFactoryLocator, TextEncryptor textEncryptor) {
+        this.userConnectionRepository = userConnectionRepository;
         this.connectionFactoryLocator = connectionFactoryLocator;
         this.textEncryptor = textEncryptor;
     }
