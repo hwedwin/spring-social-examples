@@ -3,7 +3,6 @@ package com.tanghuan.dev.oauth.entity.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Date;
 
 /**
  * Created by Arthur on 2017/4/24.

@@ -16,10 +16,12 @@ import java.util.List;
 @Table(name = "t_role")
 public class Role extends Super implements GrantedAuthority {
 
+    // 管理员
     private String name;
 
     private boolean enabled = true;
 
+    // ADMIN
     private String role;
 
     @ManyToMany(targetEntity = User.class, mappedBy = "roles")
