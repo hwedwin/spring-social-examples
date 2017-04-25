@@ -1,6 +1,6 @@
 package com.tanghuan.dev.oauth.config;
 
-import com.tanghuan.dev.oauth.security.ForbiddenEntryPoint;
+import com.tanghuan.dev.oauth.security.HttpForbiddenEntryPoint;
 import com.tanghuan.dev.oauth.security.uds.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
             .and()
                 .exceptionHandling()
-                .defaultAuthenticationEntryPointFor(new ForbiddenEntryPoint(), AnyRequestMatcher.INSTANCE)
+                .defaultAuthenticationEntryPointFor(new HttpForbiddenEntryPoint(), AnyRequestMatcher.INSTANCE)
             .and()
                 .logout()
                 .logoutUrl("/logout.html")
