@@ -1,7 +1,10 @@
 package com.tanghuan.dev.oauth.controller;
 
+import com.tanghuan.dev.oauth.entity.domain.Role;
+import com.tanghuan.dev.oauth.entity.domain.User;
 import com.tanghuan.dev.oauth.entity.dto.UserBindDto;
 import com.tanghuan.dev.oauth.entity.dto.UserDto;
+import com.tanghuan.dev.oauth.repository.RoleRepository;
 import com.tanghuan.dev.oauth.repository.UserRepository;
 import com.tanghuan.dev.oauth.security.utils.SignInUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tanghuan on 2017/4/13.
@@ -27,6 +32,9 @@ public class IndexController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
@@ -64,8 +72,23 @@ public class IndexController {
             return "redirect:/login.html";
         }
 
-        SignInUtils.signin(connection.getKey().toString());
-        providerSignInUtils.doPostSignUp(connection.getKey().toString(), request);
+        // TODO 验证手机验证码的正确性
+
+        // TODO 保存用户和第三方应用账号的关系
+        User user = new User();
+        user.setDisplayName(connection.getDisplayName());
+        String userId = connection.getKey().toString();
+        user.setUserId(userId);
+        user.setPhone(dto.getPhone());
+
+        Role role = roleRepository.findByRole("USER");
+        List<Role> roles = new ArrayList<>();
+        roles.add(role);
+        user.setRoles(roles);
+        userRepository.save(user);
+
+        SignInUtils.signin(userId);
+        providerSignInUtils.doPostSignUp(userId, request);
 
         return "redirect:/main.html";
     }

@@ -18,10 +18,13 @@ import java.util.List;
 public class User extends Super implements UserDetails {
 
     @Column(unique = true, nullable = false)
-    private String username;
+    private String displayName;
 
     @Column(nullable = false)
-    private String password;
+    private String userId;
+
+    @Column(nullable = false, unique = true, length = 11)
+    private String phone;
 
     private boolean enabled = true;
 
@@ -38,11 +41,7 @@ public class User extends Super implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        return userId;
     }
 
     @Override
@@ -50,12 +49,33 @@ public class User extends Super implements UserDetails {
         return roles;
     }
 
+    @Override
     public String getPassword() {
-        return password;
+        return userId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setEnabled(boolean enabled) {

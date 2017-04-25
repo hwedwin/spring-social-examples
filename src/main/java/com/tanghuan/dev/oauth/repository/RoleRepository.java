@@ -7,4 +7,6 @@ import com.tanghuan.dev.oauth.entity.domain.Role;
  */
 public interface RoleRepository extends BaseRepository<Role> {
 
+    Role findByRole(String role);
+
 }
