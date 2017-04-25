@@ -23,8 +23,7 @@ import java.util.*;
  */
 public class ConnectionRepositoryImpl implements ConnectionRepository {
 
-    @Autowired
-    private UserConnectionRepository userConnectionRepository;
+    private final UserConnectionRepository userConnectionRepository;
 
     private final String userId;
 
@@ -32,8 +31,9 @@ public class ConnectionRepositoryImpl implements ConnectionRepository {
 
     private final TextEncryptor textEncryptor;
 
-    public ConnectionRepositoryImpl(String userId, ConnectionFactoryLocator connectionFactoryLocator, TextEncryptor textEncryptor) {
+    public ConnectionRepositoryImpl(String userId, UserConnectionRepository userConnectionRepository, ConnectionFactoryLocator connectionFactoryLocator, TextEncryptor textEncryptor) {
         this.userId = userId;
+        this.userConnectionRepository = userConnectionRepository;
         this.connectionFactoryLocator = connectionFactoryLocator;
         this.textEncryptor = textEncryptor;
     }

@@ -8,7 +8,11 @@
     <h1>请绑定手机号</h1>
     <form action="" method="post">
         <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-        <label for="username">用户名：<input id="username" name="username" type="text"></label> <br />
+        <label for="photo">
+            <img id="photo" th:src="${imageUrl}" alt="photo">
+        </label>
+        <label for="displayName">用户名：<input id="displayName" type="text" disabled th:value="${displayName}"></label> <br />
+        <input id="username" name="username" type="text" th:value="${username}" hidden><br />
         <label for="phone">手机号：<input id="phone" name="phone" type="text"></label> <br />
         <label for="validation_code">验证码：<input name="valid_code" id="validation_code" type="text"></label> <br />
         <label for="submit"><input id="submit" type="submit" value="登陆"></label> <br />

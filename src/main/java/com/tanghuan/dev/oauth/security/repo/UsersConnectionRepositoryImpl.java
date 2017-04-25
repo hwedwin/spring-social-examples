@@ -67,7 +67,8 @@ public class UsersConnectionRepositoryImpl implements UsersConnectionRepository 
 
     @Override
     public ConnectionRepository createConnectionRepository(String userId) {
-        return new ConnectionRepositoryImpl(userId, connectionFactoryLocator, textEncryptor);
+        //TODO 这里初始化的userConnectionRepository  为空
+        return new ConnectionRepositoryImpl(userId, userConnectionRepository, connectionFactoryLocator, textEncryptor);
     }
 
     public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {

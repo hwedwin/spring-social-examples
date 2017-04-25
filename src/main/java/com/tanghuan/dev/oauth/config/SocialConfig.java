@@ -15,6 +15,7 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 import org.springframework.social.security.SocialUserDetailsService;
 
@@ -47,6 +48,11 @@ public class SocialConfig implements SocialConfigurer {
     @Bean
     public SocialUserDetailsService socialUserDetailsService() {
         return new SocialUserDetailsServiceImpl();
+    }
+
+    @Bean
+    public ProviderSignInUtils providerSignInUtils(ConnectionFactoryLocator connectionFactoryLocator) {
+        return new ProviderSignInUtils(connectionFactoryLocator, getUsersConnectionRepository(connectionFactoryLocator));
     }
 
     @Bean
