@@ -1,6 +1,6 @@
 package com.tanghuan.dev.oauth.config;
 
-import com.tanghuan.dev.oauth.security.HttpForbiddenEntryPoint;
+import com.tanghuan.dev.oauth.security.entrypoint.HttpForbiddenEntryPoint;
 import com.tanghuan.dev.oauth.security.uds.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
