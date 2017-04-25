@@ -7,13 +7,6 @@
 <body>
     <h1>欢迎进入登陆页面</h1>
 
-    <form action="/login" method="post">
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-        <label for="username"><input type="text" id="username" name="username"></label>
-        <label for="password"><input type="password" id="password" name="password"></label>
-        <input type="submit" value="登录系统">
-    </form>
-    <br>
     <form action="/auth/github" method="post">
         <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
         <input type="text" name="scope" value="user,user:email,public_repo,repo,gist" hidden>

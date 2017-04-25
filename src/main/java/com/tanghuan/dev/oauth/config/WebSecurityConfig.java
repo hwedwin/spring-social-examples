@@ -1,15 +1,18 @@
 package com.tanghuan.dev.oauth.config;
 
+import com.tanghuan.dev.oauth.security.ForbiddenEntryPoint;
 import com.tanghuan.dev.oauth.security.uds.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.util.matcher.AnyRequestMatcher;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
@@ -43,16 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login.html", "/oauth/**", "/sign**").permitAll()
             .anyRequest().authenticated()
             .and()
-                // 配置登录
-                .formLogin().loginPage("/login.html").loginProcessingUrl("/login")
-                .usernameParameter("username").passwordParameter("password")
-                .defaultSuccessUrl("/main.html").failureUrl("/login.html?err=true").permitAll()
-                // 配置记住我的功能
-            .and()
-                .rememberMe().rememberMeParameter("rememberMe")
-            // 配置登出
-            .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/login.html").permitAll()
+                .exceptionHandling()
+                .defaultAuthenticationEntryPointFor(new ForbiddenEntryPoint(), AnyRequestMatcher.INSTANCE)
             .and()
                 .apply(new SpringSocialConfigurer());
 
