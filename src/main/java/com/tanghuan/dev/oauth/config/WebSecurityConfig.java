@@ -42,11 +42,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login.html", "/oauth/**", "/sign**").permitAll()
-            .anyRequest().authenticated()
+        http.authorizeRequests()
+                .antMatchers("/login.html", "/oauth/**", "/sign**").permitAll()
+            .anyRequest()
+                .authenticated()
             .and()
                 .exceptionHandling()
                 .defaultAuthenticationEntryPointFor(new ForbiddenEntryPoint(), AnyRequestMatcher.INSTANCE)
+            .and()
+                .logout()
+                .logoutUrl("/logout.html")
+                .clearAuthentication(true)
+                .logoutSuccessUrl("/login.html")
             .and()
                 .apply(new SpringSocialConfigurer());
 

@@ -6,6 +6,9 @@
 </head>
 <body>
     <h1>欢迎进入首页面</h1>
-
+    <form action="/logout.html" method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <input type="submit" value="退出登录">
+    </form>
 </body>
 </html>

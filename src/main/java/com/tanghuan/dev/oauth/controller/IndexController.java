@@ -90,7 +90,7 @@ public class IndexController {
         SignInUtils.signin(userId);
         providerSignInUtils.doPostSignUp(userId, request);
 
-        return "redirect:/main.html";
+        return "redirect:/index.html";
     }
 
 }
