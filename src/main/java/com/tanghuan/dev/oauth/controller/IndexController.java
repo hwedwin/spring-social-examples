@@ -3,16 +3,14 @@ package com.tanghuan.dev.oauth.controller;
 import com.tanghuan.dev.oauth.entity.domain.Role;
 import com.tanghuan.dev.oauth.entity.domain.User;
 import com.tanghuan.dev.oauth.entity.dto.UserBindDto;
-import com.tanghuan.dev.oauth.entity.dto.UserDto;
 import com.tanghuan.dev.oauth.repository.RoleRepository;
 import com.tanghuan.dev.oauth.repository.UserRepository;
+import com.tanghuan.dev.oauth.security.annotation.CurrentUser;
 import com.tanghuan.dev.oauth.security.utils.SignInUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.ProviderSignInUtils;
+import org.springframework.social.security.SocialUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,17 +38,11 @@ public class IndexController {
     private ProviderSignInUtils providerSignInUtils;
 
     @GetMapping(value = {"/", "/index", "/index.html"})
-    public String index() {
+    public String index(@CurrentUser SocialUser user, Model model) {
+
+        model.addAttribute("username", user);
+
         return "index";
-    }
-
-    @GetMapping(value = {"/main", "/main.html"})
-    public String main(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        model.addAttribute("username", authentication.getPrincipal());
-
-        return "main";
     }
 
     @GetMapping("/signup")
