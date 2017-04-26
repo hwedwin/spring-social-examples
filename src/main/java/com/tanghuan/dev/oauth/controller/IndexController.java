@@ -67,17 +67,21 @@ public class IndexController {
         // TODO 验证手机验证码的正确性
 
         // TODO 保存用户和第三方应用账号的关系
-        User user = new User();
-        user.setDisplayName(connection.getDisplayName());
-        String userId = connection.getKey().toString();
-        user.setUserId(userId);
-        user.setPhone(dto.getPhone());
 
-        Role role = roleRepository.findByRole("USER");
-        List<Role> roles = new ArrayList<>();
-        roles.add(role);
-        user.setRoles(roles);
-        userRepository.save(user);
+        String userId = connection.getKey().toString();
+        User user = userRepository.findByUserId(userId);
+        if (user == null) {
+            user = new User();
+            user.setDisplayName(connection.getDisplayName());
+            user.setUserId(userId);
+            user.setPhone(dto.getPhone());
+
+            Role role = roleRepository.findByRole("USER");
+            List<Role> roles = new ArrayList<>();
+            roles.add(role);
+            user.setRoles(roles);
+            userRepository.save(user);
+        }
 
         SignInUtils.signin(userId);
         providerSignInUtils.doPostSignUp(userId, request);

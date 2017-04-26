@@ -1,5 +1,6 @@
 package com.tanghuan.dev.oauth.config;
 
+import com.tanghuan.dev.oauth.security.config.SpringSocialConfigurer;
 import com.tanghuan.dev.oauth.security.entrypoint.HttpForbiddenEntryPoint;
 import com.tanghuan.dev.oauth.security.uds.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.util.matcher.AnyRequestMatcher;
-import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * Created by Arthur on 2017/4/14.
@@ -55,8 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutSuccessUrl("/login.html")
             .and()
-                .apply(new SpringSocialConfigurer());
-
+                .apply(new SpringSocialConfigurer().postFailureUrl("/login.html"));
     }
 
 }

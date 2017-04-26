@@ -17,10 +17,10 @@ import java.util.List;
 @Table(name = "t_user")
 public class User extends Super implements UserDetails {
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String displayName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String userId;
 
     @Column(nullable = false, unique = true, length = 11)
@@ -33,9 +33,9 @@ public class User extends Super implements UserDetails {
 
     @ManyToMany(targetEntity = Role.class)
     @JoinTable(
-        name = "m_user_role",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)},
-        inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)}
+            name = "m_user_role",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)}
     )
     private List<Role> roles = new ArrayList<>();
 
