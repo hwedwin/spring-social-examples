@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Arthur on 2017/4/13.
  */
-public interface UserOperations {
+public interface GitHubUserOperations {
 
     String getProfileId();
 

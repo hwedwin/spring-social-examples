@@ -7,6 +7,6 @@ import org.springframework.social.ApiBinding;
  */
 public interface GitHub  extends ApiBinding {
 
-    UserOperations userOperations();
+    GitHubUserOperations userOperations();
 
 }
