@@ -8,6 +8,7 @@ import com.tanghuan.dev.oauth.repository.UserRepository;
 import com.tanghuan.dev.oauth.security.annotation.CurrentUser;
 import com.tanghuan.dev.oauth.security.utils.SignInUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.SocialUser;
@@ -37,12 +38,26 @@ public class IndexController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
+    @Autowired
+    private SessionRegistry sessionRegistry;
+
     @GetMapping(value = {"/", "/index", "/index.html"})
     public String index(@CurrentUser SocialUser user, Model model) {
 
+        List<Object> principals = sessionRegistry.getAllPrincipals();
+
         model.addAttribute("username", user);
+        model.addAttribute("num", principals.size());
 
         return "index";
+    }
+
+    @GetMapping("/signin")
+    public String signin(WebRequest request) {
+
+        Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
+
+        return "redirect:/login.html";
     }
 
     @GetMapping("/signup")

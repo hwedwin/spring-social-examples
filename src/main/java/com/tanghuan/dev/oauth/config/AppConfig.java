@@ -9,7 +9,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
  */
 
 @Configuration
-@Import(value = {SocialConfig.class})
+@Import(value = {SocialConfig.class, WebSecurityConfig.class})
 @ComponentScan(
         basePackages = {
                 "com.tanghuan.dev.oauth.service.impl"

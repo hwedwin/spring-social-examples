@@ -2,6 +2,7 @@ package com.tanghuan.dev.oauth.config;
 
 import org.springframework.mobile.device.DeviceResolverRequestFilter;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -58,5 +59,7 @@ public class ServletInitializer extends AbstractAnnotationConfigDispatcherServle
 
         HiddenHttpMethodFilter methodFilter = new HiddenHttpMethodFilter();
         servletContext.addFilter("hiddenHttpMethodFilter", methodFilter);
+
+        servletContext.addListener(HttpSessionEventPublisher.class);
     }
 }

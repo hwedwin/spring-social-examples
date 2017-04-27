@@ -5,7 +5,7 @@
     <title>首页</title>
 </head>
 <body>
-    <h1>欢迎进入首页面</h1>
+    <h1>欢迎进入首页面,当前在线人数为 <b th:text="${num}">0</b></h1>
     <form action="/logout.html" method="post">
         <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
         <input type="submit" value="退出登录">

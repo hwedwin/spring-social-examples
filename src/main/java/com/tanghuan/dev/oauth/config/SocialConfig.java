@@ -27,7 +27,7 @@ import org.springframework.social.security.SocialUserDetailsService;
 
 @Configuration
 @EnableSocial
-@Import(value = {JpaConfig.class, WebSecurityConfig.class})
+@Import(value = {JpaConfig.class})
 public class SocialConfig implements SocialConfigurer {
 
     @Autowired
